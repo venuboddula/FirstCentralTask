@@ -9,6 +9,7 @@ namespace CheckoutKata.Library
     public class Checkout: ICheckout
     {
         private readonly IEnumerable<IItem> _items;
+        private readonly IEnumerable<SpecialOffer> _specialOffers;
         private readonly IDictionary<string, int> _checkoutItems;
 
         public IDictionary<string, int> CheckoutItems
@@ -18,9 +19,10 @@ namespace CheckoutKata.Library
                 return _checkoutItems;
             }
         }
-        public Checkout(IEnumerable<IItem> items)
+        public Checkout(IEnumerable<IItem> items, IEnumerable<SpecialOffer> specialOffers)
         {
             _items = items;
+            _specialOffers = specialOffers;
             _checkoutItems = new Dictionary<string, int>();
         }
         public Checkout Scan(IItem item)
