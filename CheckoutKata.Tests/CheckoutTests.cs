@@ -66,5 +66,20 @@ namespace CheckoutKata.Tests
             Assert.Equal(0, checkOut.CheckoutItems.Count);
         }
 
+        [Fact]
+
+        public void Be_Able_To_Calculate_The_Price_Of_ScannedItem()
+        {
+            //Assign  
+            Item item = new Item() { SKU = "A99", UnitPrice = 0.50m };
+
+            //Act
+            Checkout checkOut = _checkOut.Scan(item);
+            decimal total = checkOut.Total();
+
+            //Assert
+            Assert.Equal(0.50m, total);
+        }
+
     }
 }

@@ -42,5 +42,23 @@ namespace CheckoutKata.Library
             }
             return this;
         }
+
+        public decimal Total()
+        {
+            decimal total = 0;
+
+            foreach (KeyValuePair<string, int> item in CheckoutItems)
+            {
+                total += GetPriceForItem(item.Key) * item.Value;
+            }
+
+            return total;
+        }
+
+        private decimal GetPriceForItem(string sku)
+        {
+            return _items.Single(x => x.SKU == sku).UnitPrice;
+
+        }
     }
 }
