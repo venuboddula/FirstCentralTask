@@ -25,15 +25,17 @@ namespace CheckoutKata.Library
         }
         public Checkout Scan(Item item)
         {
-            if (!CheckoutItems.ContainsKey(item.SKU))
+            if (item != null)
             {
-                CheckoutItems.Add(item.SKU, 1);
+                if (!CheckoutItems.ContainsKey(item.SKU))
+                {
+                    CheckoutItems.Add(item.SKU, 1);
+                }
+                else
+                {
+                    CheckoutItems[item.SKU]++;
+                }
             }
-            else
-            {
-                CheckoutItems[item.SKU]++;
-            }
-
             return this;
         }
     }

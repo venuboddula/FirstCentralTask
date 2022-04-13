@@ -38,5 +38,19 @@ namespace CheckoutKata.Tests
             Assert.Contains(checkOut.CheckoutItems, x => x.Key.ToString() == item.SKU);
         }
 
+        [Fact]
+
+        public void Not_Scan_A_Null_Item()
+        {
+            //Assign  
+            Item item = null;
+
+            //Act
+            Checkout checkOut = _checkOut.Scan(item);
+
+            //Assert
+            Assert.Equal(0, checkOut.CheckoutItems.Count);
+        }
+
     }
 }
