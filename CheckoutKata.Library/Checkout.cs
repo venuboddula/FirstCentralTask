@@ -44,6 +44,7 @@ namespace CheckoutKata.Library
             }
             return this;
         }
+        
 
         public decimal Total()
         {
@@ -51,7 +52,27 @@ namespace CheckoutKata.Library
 
             foreach (KeyValuePair<string, int> item in CheckoutItems)
             {
-                total += GetPriceForItem(item.Key) * item.Value;
+                total += CalulateItemTotal(item.Key, item.Value);
+
+            }
+
+            return total;
+        }
+
+        private decimal CalulateItemTotal(string sku, int itemCount)
+        {
+            decimal total = 0;
+
+            if (ItemHasGotSpecialOffer(sku))
+            {
+                var specialItem = _specialOffers.Single(x => x.SKU == sku);
+                var offerItems = itemCount / specialItem.Quantity;
+                var unOfferItems = itemCount % specialItem.Quantity;
+                total = (offerItems * specialItem.OfferPrice) + (unOfferItems * GetPriceForItem(sku));
+            }
+            else
+            {
+                total += GetPriceForItem(sku) * itemCount;
             }
 
             return total;
@@ -61,6 +82,10 @@ namespace CheckoutKata.Library
         {
             return _items.Single(x => x.SKU == sku).UnitPrice;
 
+        }
+        private bool ItemHasGotSpecialOffer(string sku)
+        {
+            return _specialOffers.Any(x => x.SKU == sku);
         }
     }
 }
