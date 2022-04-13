@@ -10,8 +10,8 @@ namespace CheckoutKata.Tests
 {
     public class CheckoutTestShould
     {
-        IEnumerable<Item> _items;
-        Checkout _checkOut;
+        IEnumerable<IItem> _items;
+        ICheckout _checkOut;
         public CheckoutTestShould()
         {
             _items = new List<Item>()
@@ -29,13 +29,13 @@ namespace CheckoutKata.Tests
         public void Be_Able_To_Scan_An_Item()
         {
             //Assign
-            Item item = new Item() { SKU = "A99", UnitPrice = 0.50m };            
+            IItem item = new Item() { SKU = "A99", UnitPrice = 0.50m };            
 
             //Act
-            Checkout checkOut = _checkOut.Scan(item);
+            _checkOut = _checkOut.Scan(item);
 
             //Assert
-            Assert.Contains(checkOut.CheckoutItems, x => x.Key.ToString() == item.SKU);
+            Assert.Contains(_checkOut.CheckoutItems, x => x.Key.ToString() == item.SKU);
         }
 
         [Fact]
@@ -43,13 +43,13 @@ namespace CheckoutKata.Tests
         public void Not_Scan_A_Null_Item()
         {
             //Assign  
-            Item item = null;
+            IItem item = null;
 
             //Act
-            Checkout checkOut = _checkOut.Scan(item);
+            _checkOut = _checkOut.Scan(item);
 
             //Assert
-            Assert.Equal(0, checkOut.CheckoutItems.Count);
+            Assert.Equal(0, _checkOut.CheckoutItems.Count);
         }
 
         [Fact]
@@ -57,13 +57,13 @@ namespace CheckoutKata.Tests
         public void Not_Scan_An_Invalid_Item()
         {
             //Assign  
-            Item item = new Item() { SKU = "A97", UnitPrice = 0.50m };
+            IItem item = new Item() { SKU = "A97", UnitPrice = 0.50m };
 
             //Act
-            Checkout checkOut = _checkOut.Scan(item);
+            _checkOut = _checkOut.Scan(item);
 
             //Assert
-            Assert.Equal(0, checkOut.CheckoutItems.Count);
+            Assert.Equal(0, _checkOut.CheckoutItems.Count);
         }
 
         [Fact]
@@ -71,11 +71,11 @@ namespace CheckoutKata.Tests
         public void Be_Able_To_Calculate_The_Price_Of_ScannedItem()
         {
             //Assign  
-            Item item = new Item() { SKU = "A99", UnitPrice = 0.50m };
+            IItem item = new Item() { SKU = "A99", UnitPrice = 0.50m };
 
             //Act
-            Checkout checkOut = _checkOut.Scan(item);
-            decimal total = checkOut.Total();
+            _checkOut = _checkOut.Scan(item);
+            decimal total = _checkOut.Total();
 
             //Assert
             Assert.Equal(0.50m, total);
@@ -86,7 +86,7 @@ namespace CheckoutKata.Tests
         public void Be_Able_To_Calculate_The_Price_Of_Multiple_ScannedItems()
         {
             //Assign  
-            List<Item> items = new List<Item>()
+            IEnumerable<IItem> items = new List<Item>()
             {
                 new Item { SKU = "A99", UnitPrice = 0.50m },
                 new Item { SKU = "B15", UnitPrice = 0.30m }

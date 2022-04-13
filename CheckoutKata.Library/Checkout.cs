@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CheckoutKata.Library
 {
-    public class Checkout
+    public class Checkout: ICheckout
     {
-        private readonly IEnumerable<Item> _items;
+        private readonly IEnumerable<IItem> _items;
         private readonly IDictionary<string, int> _checkoutItems;
 
         public IDictionary<string, int> CheckoutItems
@@ -18,12 +18,12 @@ namespace CheckoutKata.Library
                 return _checkoutItems;
             }
         }
-        public Checkout(IEnumerable<Item> items)
+        public Checkout(IEnumerable<IItem> items)
         {
             _items = items;
             _checkoutItems = new Dictionary<string, int>();
         }
-        public Checkout Scan(Item item)
+        public Checkout Scan(IItem item)
         {
             if (item != null)
             {

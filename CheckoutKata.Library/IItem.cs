@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CheckoutKata.Library
 {
-    public class Item:IItem
+    public interface IItem
     {
-        public string SKU { get; set; }
-        public decimal UnitPrice { get; set; }
+        string SKU { get; set; }
+        decimal UnitPrice { get; set; }
     }
 }

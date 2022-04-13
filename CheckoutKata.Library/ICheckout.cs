@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace CheckoutKata.Library
 {
-    public class Item:IItem
+    public interface ICheckout
     {
-        public string SKU { get; set; }
-        public decimal UnitPrice { get; set; }
+        IDictionary<string, int> CheckoutItems { get; }
+        Checkout Scan(IItem item);
+        decimal Total();
     }
 }

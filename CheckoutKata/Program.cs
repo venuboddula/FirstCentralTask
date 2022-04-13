@@ -8,7 +8,7 @@ namespace CheckoutKata
     {
         static void Main(string[] args)
         {
-            List<Item> items = new List<Item>()
+            IEnumerable<IItem> items = new List<Item>()
             {
                 new Item() { SKU="A99", UnitPrice=0.50m },
                 new Item() { SKU="B15", UnitPrice=0.30m },
