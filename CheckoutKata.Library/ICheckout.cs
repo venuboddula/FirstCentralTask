@@ -9,7 +9,7 @@ namespace CheckoutKata.Library
     public interface ICheckout
     {
         IDictionary<string, int> CheckoutItems { get; }
-        Checkout Scan(IItem item);
+        ICheckout Scan(IItem item);
         decimal Total();
     }
 }

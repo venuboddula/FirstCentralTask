@@ -25,7 +25,7 @@ namespace CheckoutKata.Library
             _specialOffers = specialOffers;
             _checkoutItems = new Dictionary<string, int>();
         }
-        public Checkout Scan(IItem item)
+        public ICheckout Scan(IItem item)
         {
             if (item != null)
             {
