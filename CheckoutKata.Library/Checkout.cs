@@ -27,14 +27,18 @@ namespace CheckoutKata.Library
         {
             if (item != null)
             {
-                if (!CheckoutItems.ContainsKey(item.SKU))
+                //Check if a valid item is passed for scanning
+                if(_items.Any(x=>x.SKU == item.SKU))
                 {
-                    CheckoutItems.Add(item.SKU, 1);
-                }
-                else
-                {
-                    CheckoutItems[item.SKU]++;
-                }
+                    if (!CheckoutItems.ContainsKey(item.SKU))
+                    {
+                        CheckoutItems.Add(item.SKU, 1);
+                    }
+                    else
+                    {
+                        CheckoutItems[item.SKU]++;
+                    }
+                }                
             }
             return this;
         }

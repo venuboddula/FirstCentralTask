@@ -52,5 +52,19 @@ namespace CheckoutKata.Tests
             Assert.Equal(0, checkOut.CheckoutItems.Count);
         }
 
+        [Fact]
+
+        public void Not_Scan_An_Invalid_Item()
+        {
+            //Assign  
+            Item item = new Item() { SKU = "A97", UnitPrice = 0.50m };
+
+            //Act
+            Checkout checkOut = _checkOut.Scan(item);
+
+            //Assert
+            Assert.Equal(0, checkOut.CheckoutItems.Count);
+        }
+
     }
 }
