@@ -10,15 +10,18 @@ namespace CheckoutKata.Tests
 {
     public class CheckoutTestShould
     {
-        IEnumerable<Item> items;
+        IEnumerable<Item> _items;
+        Checkout _checkOut;
         public CheckoutTestShould()
         {
-            items = new List<Item>()
+            _items = new List<Item>()
             {
                 new Item() { SKU="A99", UnitPrice=0.50m },
                 new Item() { SKU="B15", UnitPrice=0.30m },
                 new Item() { SKU="C40", UnitPrice=0.60m }
             };
+
+            _checkOut = new Checkout(_items);
         }
 
         [Fact]
@@ -26,14 +29,13 @@ namespace CheckoutKata.Tests
         public void Be_Able_To_Scan_An_Item()
         {
             //Assign
-            Item item = new Item() { SKU = "A99", UnitPrice = 0.50m };
-            Checkout checkOut = new Checkout(items);
+            Item item = new Item() { SKU = "A99", UnitPrice = 0.50m };            
 
             //Act
-            bool isScanned = checkOut.Scan(item);
+            Checkout checkOut = _checkOut.Scan(item);
 
             //Assert
-            Assert.True(isScanned);
+            Assert.Contains(checkOut.CheckoutItems, x => x.Key.ToString() == item.SKU);
         }
 
     }
