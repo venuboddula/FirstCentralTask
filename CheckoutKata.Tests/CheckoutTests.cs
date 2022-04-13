@@ -81,5 +81,28 @@ namespace CheckoutKata.Tests
             Assert.Equal(0.50m, total);
         }
 
+        [Fact]
+
+        public void Be_Able_To_Calculate_The_Price_Of_Multiple_ScannedItems()
+        {
+            //Assign  
+            List<Item> items = new List<Item>()
+            {
+                new Item { SKU = "A99", UnitPrice = 0.50m },
+                new Item { SKU = "B15", UnitPrice = 0.30m }
+            };
+
+            foreach(Item item in items)
+            {
+                _checkOut.Scan(item);
+            }  
+
+            //Act;
+            decimal total = _checkOut.Total();
+
+            //Assert
+            Assert.Equal(0.80m, total);
+        }
+
     }
 }
